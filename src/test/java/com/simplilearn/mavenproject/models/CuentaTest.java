@@ -10,8 +10,7 @@ import org.junit.jupiter.api.*;
 class CuentaTest {
 
 	Cuenta cuenta;
-
-	@BeforeAll
+	
 	@BeforeEach
 	void initMetodoTest() {
 		this.cuenta = new Cuenta("Andres", new BigDecimal("1000.12345"));
@@ -22,6 +21,7 @@ class CuentaTest {
 	void tearDown() {
 		System.out.println("finalizando el metodo de prueba.");
 	}
+	
 
 	@Test
 	@DisplayName("Probando nombre de la cuenta corriente")

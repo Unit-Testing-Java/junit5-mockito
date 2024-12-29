@@ -3,13 +3,27 @@ package com.simplilearn.mavenproject.models;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.Properties;
 
 import com.simplilearn.mavenproject.exceptions.DineroInsuficienteException;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
 
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CuentaTest {
 
 	Cuenta cuenta;
+	
+	@BeforeAll
+	static void beforeAll() {
+		System.out.println("Inicializando el test");
+	}
+	
+	@AfterAll
+	static void afterAll() {
+		System.out.println("Finalizando el test");
+	}
 	
 	@BeforeEach
 	void initMetodoTest() {
@@ -125,5 +139,90 @@ class CuentaTest {
 	                () -> assertTrue(banco.getCuentas().stream()
 	                        .anyMatch(c -> c.getPersona().equals("Andres")))
 	        );
+	}
+	
+	@Test
+	@EnabledOnOs(OS.WINDOWS)
+	void testSoloWindows() {
+	
+	}
+	
+	@Test
+	@EnabledOnOs({OS.LINUX, OS.MAC})
+	void testSoloLinuxMac() {
+	
+	}
+	
+	@Test
+	@EnabledOnJre(JRE.JAVA_11)
+	void testSoloJdk11() {
+	
+	}
+	
+	@Test
+	void imprimirSystemProperties() {
+		Properties properties = System.getProperties();
+		properties.forEach((k, v) -> System.out.println(k + ": " + v));
+		
+	}
+	
+	@Test
+	@EnabledIfSystemProperty(named = "java.version", matches = "21.0.4")
+	void testJavaVersion() {
+	
+	}
+	
+	@Test
+	@DisabledIfSystemProperty(named = "os.arch", matches = ".*32.*")
+	void testSolo64() {
+	
+	}
+	
+	@Test
+	@EnabledIfSystemProperty(named = "os.arch", matches = ".*64.*")
+	void testNO64() {
+	
+	}
+	
+	@Test
+	@EnabledIfSystemProperty(named = "user.name", matches = "Jhon")
+	void testUsername() {
+	
+	}
+	
+	@Test
+	@EnabledIfSystemProperty(named = "ENV", matches = "dev")
+	void testDev() {
+	
+	}
+	
+	@Test
+	void imprimirVariablesAmbiente() {
+		Map<String, String> getenv = System.getenv();
+		getenv.forEach((k, v) -> System.out.println(k + " = " + v));
+	}
+	
+	@Test
+	@EnabledIfEnvironmentVariable(named = "JAVA_HOME", matches = "/opt/homebrew/Cellar/openjdk@21/21.0.4")
+	void testJavaHome() {
+	
+	}
+	
+	@Test
+	@EnabledIfEnvironmentVariable(named = "NUMBER_OF_PROCESSORS", matches = "12")
+	void testProcesadores() {
+	
+	}
+	
+	@Test
+	@EnabledIfEnvironmentVariable(named = "ENVIRONMENT", matches = "dev")
+	void testEnv() {
+	
+	}
+	
+	@Test
+	@DisabledIfEnvironmentVariable(named = "ENVIRONMENT", matches = "prod")
+	void testEnvProdDisabled() {
+	
 	}
 }
